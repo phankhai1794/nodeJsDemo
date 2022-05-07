@@ -37,4 +37,15 @@ let getUsers = (currentPage) => {
     })
 }
 
-module.exports = {createNewUser, getUsers};
+let getUserDetail = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = await db.User.findOne({where: { id }});
+            resolve(data);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+module.exports = {createNewUser, getUsers, getUserDetail};

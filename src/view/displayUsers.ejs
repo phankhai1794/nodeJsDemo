@@ -17,6 +17,7 @@
                 <th>LastName</th>
                 <th>Address</th>
                 <th>PhoneNumber</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,10 @@
                     <td><%= user.lastName %></td>
                     <td><%= user.address %></td>
                     <td><%= user.phoneNumber %></td>
+                    <td>
+                        <button class="btn btn-primary" type="button" onclick="window.location.href=''">Edit</button>
+                        <button class="btn btn-danger" type="button">Remove</button>
+                    </td>
                 </tr>
             <% }); %>
         </tbody>

@@ -18,6 +18,12 @@ let getAllUsers = async (req, res) => {
     return res.render("displayUsers.ejs", {users});
 }
 
+let getUserDetail = async (req, res) => {
+    console.log(req.query.id);
+    // let user = await crudService.getUserDetail(req.query.id);
+    return res.render("displayUserDetail.ejs");
+}
+
 let getCrud = async (req, res) => {
     let addNewUser = await crudService.createNewUser(req.body);
     return res.send(addNewUser);
