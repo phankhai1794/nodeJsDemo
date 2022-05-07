@@ -6,8 +6,9 @@ const userCommon = require('../common/userCommon');
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            console.log(data);
             const hashPass = await userCommon.hashUserPassword(data.password);
-            await db.User.create({
+            const dataSubmit = {
                 email: data.email,
                 password: hashPass,
                 firstName: data.firstName,
@@ -17,7 +18,13 @@ let createNewUser = (data) => {
                 roleId: data.roleId,
                 phoneNumber: data.phoneNumber,
                 positionId: data.positionId,
-            });
+            };
+            if (data.userId) {
+                let userUpdate = await db.User.findOne({where: { id: data.userId }});
+                await userUpdate.update(dataSubmit);
+            } else {
+                await db.User.create(dataSubmit);
+            }
             resolve('add success');
         } catch (e) {
             reject(e);

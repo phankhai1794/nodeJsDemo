@@ -11,6 +11,7 @@
 <body class="container">
     <form action="/crud" method="post">
         <% if(user) { %>
+            <input name="userId" type="hidden" value="<%= user.id %>"/>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" name="email" class="form-control" id="email" value="<%= user.email %>"/>
@@ -98,13 +99,15 @@
     </form>
 
     <script>
-        (function(){
-            //code here
-            let valueGender = document.getElementById("genderValue").value;
-            let valueRole = document.getElementById("roleValue").value;
-            document.getElementById('gender').value = valueGender === 'true' ? '1' : '2';
-            document.getElementById('role').value = valueRole;
-        })();
+        <% if (user) { %>
+            (function(){
+                //code here
+                let valueGender = document.getElementById("genderValue").value;
+                let valueRole = document.getElementById("roleValue").value;
+                document.getElementById('gender').value = valueGender === 'true' ? '1' : '2';
+                document.getElementById('role').value = valueRole;
+            })();
+        <% } %>
     </script>
 </body>
 </html>
