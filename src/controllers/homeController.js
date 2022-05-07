@@ -13,15 +13,38 @@ let getHomePage = async (req, res) => {
     }
 }
 
+let addUser = async (req, res) => {
+    try {
+        return res.render("addUser.ejs");
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 let getAllUsers = async (req, res) => {
     let users = await crudService.getUsers(req.query.page);
     return res.render("displayUsers.ejs", {users});
 }
 
 let getUserDetail = async (req, res) => {
-    console.log(req.query.id);
-    // let user = await crudService.getUserDetail(req.query.id);
-    return res.render("displayUserDetail.ejs");
+    try {
+        let user;
+        if (req.params.id == 'add') {
+            console.log('add');
+            return res.render("addUser.ejs", {user});
+        } else if (req.params.id == 'edit') {
+            console.log('edit');
+            user = await crudService.getUserDetail(req.query.id);
+            return res.render("addUser.ejs", {user});
+        } else {
+            let user = await crudService.getUserDetail(req.params.id);
+            return res.render("displayUserDetail.ejs", {
+                user
+            });
+        }
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 let getCrud = async (req, res) => {
@@ -32,5 +55,7 @@ let getCrud = async (req, res) => {
 module.exports = {
     getHomePage,
     getCrud,
-    getAllUsers
+    getAllUsers,
+    getUserDetail,
+    addUser
 }

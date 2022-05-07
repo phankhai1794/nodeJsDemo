@@ -16,7 +16,6 @@
                 <th>FistName</th>
                 <th>LastName</th>
                 <th>Address</th>
-                <th>PhoneNumber</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,14 +26,26 @@
                     <td><%= user.firstName %></td>
                     <td><%= user.lastName %></td>
                     <td><%= user.address %></td>
-                    <td><%= user.phoneNumber %></td>
                     <td>
-                        <button class="btn btn-primary" type="button" onclick="window.location.href=''">Edit</button>
-                        <button class="btn btn-danger" type="button">Remove</button>
+                        <button class="btn btn-success btn-sm" onclick="getDetailUser(<%= user.id %>)">Detail</button>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="getEditUser(<%= user.id %>)">Edit</button>
+                        <button class="btn btn-danger btn-sm" type="button">Remove</button>
                     </td>
                 </tr>
             <% }); %>
         </tbody>
+        <button class="btn btn-info mb-4 mt-4 btn-sm" onclick="location.href = 'http://localhost:8080/users/add'">Add Users</button>
     </table>
+
+    <script>
+        function getDetailUser(id) {
+            let currentPath = window.location.href;
+            location.href = `${currentPath}/${id}`;
+        }
+        function getEditUser(id) {
+            let currentHost = window.location.host;
+            location.href = `http://${currentHost}/users/edit?id=${id}`;
+        }
+    </script>
 </body>
 </html>
