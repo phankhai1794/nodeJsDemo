@@ -15,7 +15,7 @@ let getHomePage = async (req, res) => {
 
 let addUser = async (req, res) => {
     try {
-        return res.render("addUser.ejs");
+        return res.render("addorEditUser.ejs");
     } catch (e) {
         console.log(e);
     }
@@ -31,11 +31,11 @@ let getUserDetail = async (req, res) => {
         let user;
         if (req.params.id == 'add') {
             console.log('add');
-            return res.render("addUser.ejs", {user});
+            return res.render("addorEditUser.ejs", {user});
         } else if (req.params.id == 'edit') {
             console.log('edit');
             user = await crudService.getUserDetail(req.query.id);
-            return res.render("addUser.ejs", {user});
+            return res.render("addorEditUser.ejs", {user});
         } else {
             let user = await crudService.getUserDetail(req.params.id);
             return res.render("displayUserDetail.ejs", {
@@ -49,7 +49,20 @@ let getUserDetail = async (req, res) => {
 
 let getCrud = async (req, res) => {
     let addNewUser = await crudService.createNewUser(req.body);
-    return res.send(addNewUser);
+    if (addNewUser.success) {
+        return res.redirect('/users');
+    } else {
+        return res.send(addNewUser);
+    }
+}
+
+let removeUser = async (req, res) => {
+    let remove = await crudService.removeUser(req.params.id);
+    if (remove.success) {
+        return res.redirect('/users');
+    } else {
+        return res.send(remove);
+    }
 }
 
 module.exports = {
@@ -57,5 +70,6 @@ module.exports = {
     getCrud,
     getAllUsers,
     getUserDetail,
-    addUser
+    addUser,
+    removeUser
 }

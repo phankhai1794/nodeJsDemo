@@ -6,7 +6,6 @@ const userCommon = require('../common/userCommon');
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log(data);
             const hashPass = await userCommon.hashUserPassword(data.password);
             const dataSubmit = {
                 email: data.email,
@@ -15,7 +14,7 @@ let createNewUser = (data) => {
                 lastName: data.lastName,
                 address: data.address,
                 gender: data.gender === 1 ? true : false,
-                roleId: data.roleId,
+                roleId: data.role,
                 phoneNumber: data.phoneNumber,
                 positionId: data.positionId,
             };
@@ -25,7 +24,9 @@ let createNewUser = (data) => {
             } else {
                 await db.User.create(dataSubmit);
             }
-            resolve('add success');
+            resolve({
+                success: true
+            });
         } catch (e) {
             reject(e);
         }
@@ -55,4 +56,17 @@ let getUserDetail = (id) => {
     })
 }
 
-module.exports = {createNewUser, getUsers, getUserDetail};
+let removeUser = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = await db.User.destroy({where: { id }});
+            resolve({
+                success: true
+            });
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+module.exports = {createNewUser, getUsers, getUserDetail, removeUser};

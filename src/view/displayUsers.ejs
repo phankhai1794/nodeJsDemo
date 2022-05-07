@@ -29,12 +29,13 @@
                     <td>
                         <button class="btn btn-success btn-sm" onclick="getDetailUser(<%= user.id %>)">Detail</button>
                         <button class="btn btn-primary btn-sm" type="button" onclick="getEditUser(<%= user.id %>)">Edit</button>
-                        <button class="btn btn-danger btn-sm" type="button">Remove</button>
+                        <button class="btn btn-danger btn-sm" type="button" onclick="removeUser(<%= user.id %>)">Remove</button>
                     </td>
                 </tr>
             <% }); %>
         </tbody>
         <button class="btn btn-info mb-4 mt-4 btn-sm" onclick="location.href = 'http://localhost:8080/users/add'">Add Users</button>
+        <form action="" method="post" id="removeSubmit"></form>
     </table>
 
     <script>
@@ -45,6 +46,12 @@
         function getEditUser(id) {
             let currentHost = window.location.host;
             location.href = `http://${currentHost}/users/edit?id=${id}`;
+        }
+        function removeUser(id) {
+            let currentPath = window.location.href;
+            let removeForm = document.querySelector('#removeSubmit');
+            removeForm.setAttribute('action', `${currentPath}/remove/${id}`);
+            removeForm.submit();
         }
     </script>
 </body>
