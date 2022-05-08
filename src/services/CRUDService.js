@@ -2,14 +2,15 @@ import db from "../models";
 import helper from "../helper";
 import config from "../config";
 const userCommon = require('../common/userCommon');
+const Cryptr = require('cryptr');
 
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const hashPass = await userCommon.hashUserPassword(data.password);
+            const hashPassword = await userCommon.hashUserPassword(data.password);
             const dataSubmit = {
                 email: data.email,
-                password: hashPass,
+                password: hashPassword,
                 firstName: data.firstName,
                 lastName: data.lastName,
                 address: data.address,

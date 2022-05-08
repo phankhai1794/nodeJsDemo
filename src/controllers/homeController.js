@@ -50,7 +50,7 @@ let getUserDetail = async (req, res) => {
 let getCrud = async (req, res) => {
     let addNewUser = await crudService.createNewUser(req.body);
     if (addNewUser.success) {
-        return res.redirect('/users');
+        return res.redirect('/api/users');
     } else {
         return res.send(addNewUser);
     }
@@ -59,7 +59,7 @@ let getCrud = async (req, res) => {
 let removeUser = async (req, res) => {
     let remove = await crudService.removeUser(req.params.id);
     if (remove.success) {
-        return res.redirect('/users');
+        return res.redirect('/api/users');
     } else {
         return res.send(remove);
     }

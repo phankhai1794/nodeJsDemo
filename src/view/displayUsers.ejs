@@ -34,7 +34,7 @@
                 </tr>
             <% }); %>
         </tbody>
-        <button class="btn btn-info mb-4 mt-4 btn-sm" onclick="location.href = 'http://localhost:8080/users/add'">Add Users</button>
+        <button class="btn btn-info mb-4 mt-4 btn-sm" onclick="location.href = 'http://localhost:8080/api/users/add'">Add Users</button>
         <form action="" method="post" id="removeSubmit"></form>
     </table>
 
@@ -45,12 +45,12 @@
         }
         function getEditUser(id) {
             let currentHost = window.location.host;
-            location.href = `http://${currentHost}/users/edit?id=${id}`;
+            location.href = `http://${currentHost}/api/users/edit?id=${id}`;
         }
         function removeUser(id) {
             let currentPath = window.location.href;
             let removeForm = document.querySelector('#removeSubmit');
-            removeForm.setAttribute('action', `${currentPath}/remove/${id}`);
+            removeForm.setAttribute('action', `${currentPath}/api/remove/${id}`);
             removeForm.submit();
         }
     </script>
